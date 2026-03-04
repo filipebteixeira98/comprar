@@ -1,7 +1,10 @@
 import { Image, View } from "react-native";
 
 import { Button } from "@/components/Button";
+import { Filter } from "@/components/Filter";
 import { Input } from "@/components/Input";
+
+import { FilterStatus } from "@/types/FilterStatus";
 
 import { styles } from "./styles";
 
@@ -13,7 +16,10 @@ export function Home() {
         <Input placeholder="What do you need to buy?" />
         <Button title="Figure up" />
       </View>
-      <View style={styles.content}></View>
+      <View style={styles.content}>
+        <Filter status={FilterStatus.DONE} isActive />
+        <Filter status={FilterStatus.PENDING} isActive={false} />
+      </View>
     </View>
   );
 }
