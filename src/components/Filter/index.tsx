@@ -4,8 +4,9 @@ import {
   type TouchableOpacityProps,
 } from "react-native";
 
+import { StatusIcon } from "@/components/StatusIcon";
+
 import { FilterStatus } from "@/types/FilterStatus";
-import { StatusIcon } from "../StatusIcon";
 
 import { styles } from "./styles";
 
