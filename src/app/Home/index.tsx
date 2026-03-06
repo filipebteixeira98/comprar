@@ -1,4 +1,4 @@
-import { Image, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import { Button } from "@/components/Button";
 import { Filter } from "@/components/Filter";
@@ -23,6 +23,9 @@ export function Home() {
           {FILTER_STATUS.map((status) => (
             <Filter key={status} status={status} isActive />
           ))}
+          <TouchableOpacity style={styles.clearButton}>
+            <Text style={styles.clearButtonText}>Clean</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
