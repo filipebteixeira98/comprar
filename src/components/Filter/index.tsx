@@ -5,6 +5,7 @@ import {
 } from "react-native";
 
 import { FilterStatus } from "@/types/FilterStatus";
+import { StatusIcon } from "../StatusIcon";
 
 import { styles } from "./styles";
 
@@ -20,6 +21,7 @@ export function Filter({ status, isActive, ...rest }: FilterProps) {
       activeOpacity={0.8}
       {...rest}
     >
+      <StatusIcon status={status} />
       <Text style={styles.title}>
         {status === FilterStatus.DONE ? "Purchased" : "Pending"}
       </Text>
