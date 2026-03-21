@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -13,6 +13,8 @@ import { Filter } from "@/components/Filter";
 import { Input } from "@/components/Input";
 import { Item } from "@/components/Item";
 
+import { type ItemStorage, itemsStorage } from "@/storage/itemsStorage";
+
 import { FilterStatus } from "@/types/FilterStatus";
 
 import { styles } from "./styles";
@@ -20,7 +22,7 @@ import { styles } from "./styles";
 const FILTER_STATUS: FilterStatus[] = [FilterStatus.PENDING, FilterStatus.DONE];
 
 export function Home() {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<ItemStorage[]>([]);
   const [description, setDescription] = useState("");
   const [filter, setFilter] = useState(FilterStatus.PENDING);
 
@@ -39,6 +41,22 @@ export function Home() {
 
     setItems((previousState) => [...previousState, newItem]);
   }
+
+  async function getItemsFromStorage() {
+    try {
+      const storedItems = await itemsStorage.get();
+
+      setItems(storedItems);
+    } catch (error) {
+      console.error("Failed to load items from storage:", error);
+
+      Alert.alert("Error", "Failed to load items from storage.");
+    }
+  }
+
+  useEffect(() => {
+    getItemsFromStorage();
+  }, []);
 
   return (
     <View style={styles.container}>
