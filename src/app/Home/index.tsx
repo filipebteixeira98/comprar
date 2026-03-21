@@ -54,6 +54,7 @@ export function Home() {
     }
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on component mount
   useEffect(() => {
     getItemsFromStorage();
   }, []);
