@@ -26,7 +26,7 @@ export function Home() {
   const [description, setDescription] = useState("");
   const [filter, setFilter] = useState(FilterStatus.PENDING);
 
-  function handleIncreaseItems() {
+  async function handleIncreaseItems() {
     if (!description.trim()) {
       Alert.alert("Error", "Please enter a valid item description.");
 
@@ -39,7 +39,9 @@ export function Home() {
       status: FilterStatus.PENDING,
     };
 
-    setItems((previousState) => [...previousState, newItem]);
+    await itemsStorage.add(newItem);
+
+    await getItemsFromStorage();
   }
 
   async function getItemsFromStorage() {
