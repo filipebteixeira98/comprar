@@ -41,12 +41,12 @@ export function Home() {
 
     await itemsStorage.add(newItem);
 
-    await getItemsFromStorage();
+    await getItemsByStatusFromStorage();
   }
 
-  async function getItemsFromStorage() {
+  async function getItemsByStatusFromStorage() {
     try {
-      const storedItems = await itemsStorage.get();
+      const storedItems = await itemsStorage.getByStatus(filter);
 
       setItems(storedItems);
     } catch (error) {
@@ -58,8 +58,8 @@ export function Home() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on component mount
   useEffect(() => {
-    getItemsFromStorage();
-  }, []);
+    getItemsByStatusFromStorage();
+  }, [filter]);
 
   return (
     <View style={styles.container}>
