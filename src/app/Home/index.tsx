@@ -42,6 +42,12 @@ export function Home() {
     await itemsStorage.add(newItem);
 
     await getItemsByStatusFromStorage();
+
+    Alert.alert("Success", `${newItem.description} added successfully!`);
+
+    setFilter(FilterStatus.PENDING);
+
+    setDescription("");
   }
 
   async function getItemsByStatusFromStorage() {
@@ -68,6 +74,7 @@ export function Home() {
         <Input
           placeholder="What do you need to buy?"
           onChangeText={setDescription}
+          value={description}
         />
         <Button title="Figure up" onPress={handleIncreaseItems} />
       </View>
