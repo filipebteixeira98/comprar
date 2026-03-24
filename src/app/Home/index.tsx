@@ -99,6 +99,18 @@ export function Home() {
     }
   }
 
+  async function handleToggleItemStatus(id: string) {
+    try {
+      await itemsStorage.toggleStatus(id);
+
+      await getItemsByStatusFromStorage();
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert("Error", "Something went wrong while changing the status.");
+    }
+  }
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on component mount
   useEffect(() => {
     getItemsByStatusFromStorage();
@@ -138,7 +150,7 @@ export function Home() {
           renderItem={({ item }) => (
             <Item
               data={item}
-              onStatus={() => console.log("Status updated")}
+              onStatus={() => handleToggleItemStatus(item.id)}
               onRemove={() => handleRemoveItem(item.id)}
             />
           )}
