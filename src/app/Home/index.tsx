@@ -74,6 +74,31 @@ export function Home() {
     }
   }
 
+  function handleClearItems() {
+    Alert.alert("Confirm", "Are you sure you want to clear all items?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Yes",
+        onPress: () => destroyItemsFromStorage(),
+      },
+    ]);
+  }
+
+  async function destroyItemsFromStorage() {
+    try {
+      await itemsStorage.clear();
+
+      setItems([]);
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert(
+        "Error",
+        "An error occurred while attempting to clear storage.",
+      );
+    }
+  }
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on component mount
   useEffect(() => {
     getItemsByStatusFromStorage();
@@ -100,7 +125,10 @@ export function Home() {
               onPress={() => setFilter(status)}
             />
           ))}
-          <TouchableOpacity style={styles.clearButton}>
+          <TouchableOpacity
+            style={styles.clearButton}
+            onPress={handleClearItems}
+          >
             <Text style={styles.clearButtonText}>Clean</Text>
           </TouchableOpacity>
         </View>
