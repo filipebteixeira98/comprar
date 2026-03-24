@@ -62,6 +62,18 @@ export function Home() {
     }
   }
 
+  async function handleRemoveItem(id: string) {
+    try {
+      await itemsStorage.remove(id);
+
+      await getItemsByStatusFromStorage();
+    } catch (error) {
+      console.log(error);
+
+      Alert.alert("Error", "Failed to remove item from storage.");
+    }
+  }
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on component mount
   useEffect(() => {
     getItemsByStatusFromStorage();
@@ -99,7 +111,7 @@ export function Home() {
             <Item
               data={item}
               onStatus={() => console.log("Status updated")}
-              onRemove={() => console.log("Item removed")}
+              onRemove={() => handleRemoveItem(item.id)}
             />
           )}
           showsVerticalScrollIndicator={false}
